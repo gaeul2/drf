@@ -12,7 +12,7 @@ class Login_and_Level_Check(permissions.BasePermission):
 
 
 
-class UserView(APIView):
+class SongView(APIView):
     # 클래스 접근권한
     permission_classes = [Login_and_Level_Check]#누구나
     def get(self, request):
