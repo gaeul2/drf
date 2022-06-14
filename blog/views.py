@@ -18,7 +18,9 @@ class WriteAfterThreeDaysOfSubscription(BasePermission):
         # return bool(request.user and request.user.join_date <= (timezone.now() - timedelta(days=3)))
         #3시간이상인 사용자만 접근가능할때
         return bool(request.user and request.user.join_date <= (timezone.now() - timedelta(hours=3)))
-class WriteArticle(APIView):
+
+
+class WriteArticleView(APIView):
 
     permission_classes = [WriteAfterThreeDaysOfSubscription]
     def post(self, request, id):

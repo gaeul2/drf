@@ -14,14 +14,12 @@ class UserLoginView(APIView):
         password = request.data.get('password', '')
         print('아이디:', username, '패스워드:', password)
         user = authenticate(request, username=username, password=password)
-        print("@@@@@@@@@")
-        print(user)
-        print("@@@@@@@@@")
         if not user:
             return Response({"error": "존재하지 않는 계정이거나 패스워드가 일치하지 않습니다."}, status=status.HTTP_401_UNAUTHORIZED)
 
         login(request, user)
         return Response({"message": "로그인 성공!!"}, status=status.HTTP_200_OK)
+        #authenticate 통과하지 못하는 에러아직 해결못함.
 
 class UserInfoView(APIView):
     def get(self, request):
@@ -33,5 +31,6 @@ class UserInfoView(APIView):
             article_list.append(str(article))
         context = {"username": user.username, "user_fullname": user.fullname, 'articles':article_list}
         return Response({"message":context})
+        #로그인 되지 않아서 유저지정해줬습니다.
 
 
