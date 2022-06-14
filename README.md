@@ -4,3 +4,6 @@ user 앱
 
 blog 앱
   - models.py : Category모델, Article모델 
+
+
+6월10일 과제 10번까지 완료
