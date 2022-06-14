@@ -25,10 +25,10 @@ class Genre(models.Model):
     def __str__(self):
         return self.name
 
-class User(models.Model):
-    username = models.CharField("사용자 계정", max_length=20, unique=True)
-    password = models.CharField("비밀번호", max_length=60)
-    level = models.IntegerField(default=0)
-
-    def __str__(self):
-        return self.username
+# class User(models.Model):
+#     username = models.CharField("사용자 계정", max_length=20, unique=True)
+#     password = models.CharField("비밀번호", max_length=60)
+#     level = models.IntegerField(default=0)
+#
+#     def __str__(self):
+#         return self.username

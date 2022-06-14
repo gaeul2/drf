@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-wa*jd55e+b)yzhzr%74w$*h0picq_t4vt0vtxeeo+y8pag(l=t
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+AUTH_USER_MODEL = "user.USer"
 
 # Application definition
 
@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     #django rest_framework
     'rest_framework',
     'homework',
+    'user',
+    'blog',
 
 ]
 
@@ -140,3 +142,4 @@ REST_FRAMEWORK = {
         'rest_framework.parsers.MultiPartParser'
     ]
 }
+
