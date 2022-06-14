@@ -14,7 +14,8 @@ class Login_and_Level_Check(permissions.BasePermission):
 
 class SongView(APIView):
     # 클래스 접근권한
-    permission_classes = [Login_and_Level_Check]#누구나
+    # permission_classes = [Login_and_Level_Check]
+    permission_classes = [permissions.AllowAny]
     def get(self, request):
         all_songs = Song.objects.all()
         context = {
