@@ -2,6 +2,7 @@ from rest_framework import serializers
 from .models import User as UserModel
 from .models import UserProfile as UserProfileModel
 from .models import Hobby as HobbyModel
+from blog.models import Article as ArticleModel
 
 
 class HobbySerializer(serializers.ModelSerializer):
@@ -36,4 +37,21 @@ class UserSerializer(serializers.ModelSerializer):
             'password': {'write_only': True},
         }
 
+
+
+class ArticleSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ArticleModel
+        fields = ["title", "category", "content"]
+
+
+class LoginUserSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = UserModel
+        fields = ["username", "fullname", "password", "email", "join_date"]
+        extra_kwargs = {
+            'password': {'write_only': True},
+        }
 

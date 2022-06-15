@@ -22,3 +22,13 @@ class Article(models.Model):
     def __str__(self):
         return self.title
 
+class Comment(models.Model):
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    article = models.ForeignKey(Article, on_delete=models.CASCADE)
+    comment = models.CharField("댓글 내용",max_length=255)
+    created_at = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        self.comment
+
+

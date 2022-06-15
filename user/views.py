@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from blog.models import Article, Category
 from .models import User
 from django.contrib.auth.hashers import make_password
-from user.serializer import UserSerializer
+from user.serializer import UserSerializer,LoginUserSerializer
 
 # Create your views here.
 
@@ -50,3 +50,14 @@ class SameHobbyUserView(APIView):
         return Response(user_serializer, status=status.HTTP_200_OK)
 
 
+class LoginUserInfoView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request):
+        '''
+        로그인한 사용자의 기본정보 표시
+        + 사용자가 작성한 게시글을 추가로 표시
+        '''
+        login_user_serializer = LoginUserSerializer(request.user).data
+
+        return Response(login_user_serializer, status=status.HTTP_200_OK)
