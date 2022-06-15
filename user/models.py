@@ -80,7 +80,7 @@ class UserProfile(models.Model):
     gender = models.BooleanField("성별")  # True:여자 False:남자
 
     def __str__(self):
-        return self.user
+        return self.introduction
 
 
 class Hobby(models.Model):

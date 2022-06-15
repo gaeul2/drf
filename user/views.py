@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from blog.models import Article, Category
 from .models import User
 from django.contrib.auth.hashers import make_password
+from user.serializer import UserSerializer
 
 # Create your views here.
 
@@ -29,14 +30,23 @@ class UserLoginView(APIView):
 
 class UserInfoView(APIView):
     def get(self, request):
-        user = User.objects.get(id=2)
-        login(request, user)
+        user = request.user
         articles = Article.objects.filter(author=user)
         article_list = []
         for article in articles:
             article_list.append(str(article))
         context = {"username": user.username, "user_fullname": user.fullname, 'articles':article_list}
         return Response({"message":context})
-        #로그인 되지 않아서 유저지정해줬습니다.
+
+class SameHobbyUserView(APIView):
+    permission_classes = [permissions.AllowAny]
+    def get(self, request):
+        '''
+        모든 사용자에 대해 user정보와 userprofile정보 가져오고
+        같은 취미를 가진 사람들 출력하기
+        '''
+
+        user_serializer = UserSerializer(User.objects.all(), many=True).data
+        return Response(user_serializer, status=status.HTTP_200_OK)
 
 
