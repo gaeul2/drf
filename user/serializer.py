@@ -83,17 +83,20 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class ArticleSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = ArticleModel
         fields = ["title", "category", "content"]
 
 
 class LoginUserSerializer(serializers.ModelSerializer):
+    #ForeignKey인 Article를 불러오려하니 에러발생.
+    # Article모델에서 related_name지정해주고, 시리얼라이저의 StringRelatedField로 바꾸니
+    # 사용자가 작성한 게시글 정보 불러오기 성공. 위에 작성한 ArticleSerializer는 사용하지 못했지만..ㅠㅠ
+    article = serializers.StringRelatedField(many=True)
 
     class Meta:
         model = UserModel
-        fields = ["username", "fullname", "password", "email", "join_date"]
+        fields = ["username", "fullname", "password", "email", "join_date", "article"]
         extra_kwargs = {
             'password': {'write_only': True},
         }

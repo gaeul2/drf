@@ -14,7 +14,7 @@ class Category(models.Model):
 
 
 class Article(models.Model):
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, related_name='article', on_delete=models.CASCADE)
     title = models.CharField("글 제목", max_length=100, blank=False, null=False)
     category = models.ManyToManyField(to=Category, verbose_name="카테고리")
     content = models.TextField("글 내용", blank=False, null=False)

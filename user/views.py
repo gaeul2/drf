@@ -58,15 +58,12 @@ class LoginUserInfoView(APIView):
         로그인한 사용자의 기본정보 표시
         + 사용자가 작성한 게시글을 추가로 표시
         '''
-        user=request.user
+        user = request.user
         login_user_serializer = LoginUserSerializer(user).data
-        articles= Article.objects.filter(author_id=request.user.id)
-        article_serializer = ArticleSerializer(articles, many=True).data
-        context = {
-            '로그인한 유저 정보' : login_user_serializer,
-            '로그인한 사용자의 게시글' : article_serializer,
-        }
-        return Response(context, status=status.HTTP_200_OK)
+        # articles= Article.objects.filter(author_id=request.user.id)
+        # article_serializer = ArticleSerializer(articles, many=True).data
+
+        return Response(login_user_serializer, status=status.HTTP_200_OK)
 
 class UserCreateView(APIView):
     def post(self, request):
