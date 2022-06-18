@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from blog.models import Article, Category
 from .models import User
 from django.contrib.auth.hashers import make_password
-from user.serializer import UserSerializer,LoginUserSerializer
+from user.serializer import UserSerializer,LoginUserSerializer,ArticleSerializer
 
 # Create your views here.
 
@@ -13,9 +13,9 @@ class UserLoginView(APIView):
     def post(self, request):  # 로그인
         username = request.data.get('username', '')
         password = request.data.get('password', '')
-        hashed_pass = make_password(password)
+        hashed_password = make_password(password)
         edit_user = User.objects.get(username=username)
-        edit_user.password = hashed_pass
+        edit_user.password = hashed_password
         edit_user.save()
         user = authenticate(request, username=username, password=password)
         # signup을 만들지 않고 admin에서 유저생성을 했기때문에 암호화된 비밀번호가 아니여서 장고가 인증을 못함.
@@ -58,6 +58,25 @@ class LoginUserInfoView(APIView):
         로그인한 사용자의 기본정보 표시
         + 사용자가 작성한 게시글을 추가로 표시
         '''
-        login_user_serializer = LoginUserSerializer(request.user).data
+        user=request.user
+        login_user_serializer = LoginUserSerializer(user).data
+        articles= Article.objects.filter(author_id=request.user.id)
+        article_serializer = ArticleSerializer(articles, many=True).data
+        context = {
+            '로그인한 유저 정보' : login_user_serializer,
+            '로그인한 사용자의 게시글' : article_serializer,
+        }
+        return Response(context, status=status.HTTP_200_OK)
 
-        return Response(login_user_serializer, status=status.HTTP_200_OK)
+class UserCreateView(APIView):
+    def post(self, request):
+        '''
+        사용자 정보를 입력받아 create해주는 함수
+        '''
+        user_serializer = UserSerializer(data=request.data) #시리얼라이저에 담아주고
+
+        if user_serializer.is_valid(): #validation 하고 통과하면 여길 타겠지
+            user_serializer.save()
+            return Response(user_serializer.data, status=status.HTTP_200_OK)
+        #실패하면 실패한게 시리얼라이저의.errors에 담김
+        return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)

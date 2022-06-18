@@ -77,7 +77,7 @@ class UserProfile(models.Model):
     introduction = models.TextField("소개")
     birthday = models.DateField("생일")
     age = models.IntegerField("나이")
-    gender = models.BooleanField("성별")  # True:여자 False:남자
+    gender = models.BooleanField("성별", default=0)  # True:여자 False:남자
 
     def __str__(self):
         return self.introduction
