@@ -1,7 +1,7 @@
 from django.db import models
 
 # Create your models here.
-class Evnet(models.Model):
+class Event(models.Model):
     title = models.CharField("제목", max_length=100)
     thumbnail = models.URLField("썸네일")
     explain = models.TextField("설명")
