@@ -6,5 +6,3 @@ class EventSerializer(serializers.ModelSerializer):
         model = EventModel
         fields = "__all__"
 
-    def create(self, validated_data):
-        pass
