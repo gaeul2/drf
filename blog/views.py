@@ -22,19 +22,25 @@ class WriteAfterThreeDaysOfSubscription(BasePermission):
 
 class WriteArticleView(APIView):
     permission_classes = [WriteAfterThreeDaysOfSubscription]
-    def post(self, request, id):
-        user = User.objects.get(id=id)
+    def post(self, request):
         title = request.data.get('title', '')
-        input_category = request.data.get('category', '').split(',')
+        input_category = request.data.get('category', '')
         content = request.data.get('content', '')
         article = Article.objects.create(
-            author=user,
+            author=request.user,
             title=title,
             content=content,
         )
-        for i in input_category:
-            article.category.add(i)
+        article.category.add(input_category)
         return Response({"message": f'게시글 {article.title}이 잘 작성되었습니다.'})
+
+        #
+        # for i in input_category:
+        #     article.category.add(i)
+        # #
+        #
+        #
+        #
         # try:
         #     Category.objects.get(name=input_category)
         # except Category.DoesNotExist:

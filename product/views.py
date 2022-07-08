@@ -1,3 +1,6 @@
+import os.path
+
+from django.views.static import serve
 from datetime import datetime
 from rest_framework import status
 from .models import Event as EventModel
@@ -26,9 +29,16 @@ class EventView(APIView):
 class UpdateEvent(APIView):
     def put(self,request,event_id):
         edit_event = EventModel.objects.get(id=event_id) #부분수정가능하도록 partial=True
-        event_serializer = EventSerializer(edit_event, data=request.data, partial=True)
+        event_serializer = EventSerializer(edit_event, data=request.data, partial=True) #이때 def update()를 타겠지
         if event_serializer.is_valid():
             event_serializer.save()
             return Response(event_serializer.data, status=status.HTTP_200_OK)
         return Response(event_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class EventThumbnailView(APIView):
+    def get(self, request, obj_id):
+        event = EventModel.objects.get(id=obj_id)
+        filepath = event.thumbnail.path
+        return serve(request, os.path.basename(filepath), os.path.dirname(filepath))
 
