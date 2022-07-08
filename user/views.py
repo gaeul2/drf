@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from blog.models import Article, Category
 from .models import User
 from django.contrib.auth.hashers import make_password
-from user.serializer import UserSerializer,LoginUserSerializer,ArticleSerializer
+from user.serializer import UserSerializer,LoginUserSerializer
 
 # Create your views here.
 
