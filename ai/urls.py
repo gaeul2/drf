@@ -22,4 +22,5 @@ urlpatterns = [
     path('', include('user.urls')),
     path('', include('blog.urls')),
     path('', include('product.urls')),
+    path('', include('django_todo.urls')),
 ]

@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-wa*jd55e+b)yzhzr%74w$*h0picq_t4vt0vtxeeo+y8pag(l=t
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
 AUTH_USER_MODEL = "user.USer"
 
 # Application definition
@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'blog',
     'product',
     'mtm',
+    'django_todo'
 
 ]
 
@@ -111,13 +112,13 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ko-kr'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Seoul'
 
 USE_I18N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
